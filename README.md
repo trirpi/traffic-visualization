@@ -9,3 +9,11 @@ raw data: http://miv.opendata.belfla.be/miv/verkeersdata
 some explanation: http://miv.opendata.belfla.be/miv-verkeersdata.xsd
 
 more explanation: http://miv.opendata.belfla.be/miv-config.xsd
+
+location data: http://miv.opendata.belfla.be/miv/configuratie/xml
+
+## Todo
+
+* Clean data
+* Provide really simple api (Flask)
+* Start with the D3js
