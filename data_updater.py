@@ -16,8 +16,12 @@ def get_data():
     # this is where all data is going to be stored, this will be dumped to json at the end
     data = {}
 
+    data_url = 'http://miv.opendata.belfla.be/miv/verkeersdata'
+    data_xml = urllib.request.urlopen(data_url)
+    root = etree.parse(data_xml).getroot()
+
     for measure_point in root.iter('meetpunt'):
-        unique_id = measure_point.attrib['unieke_id']
+        unique_id = int(measure_point.attrib['unieke_id'])
         e_data = {}
         for elt in measure_point:
             if not elt.tag == 'meetdata':
@@ -35,7 +39,7 @@ def get_measure_points_data():
     Gets all data from measure points
     :return: dictionary with keys measure points and their attributes in a dict
     """
-    measure_point_data_url = "http://miv.opendata.belfla.be/miv/configuratie/xml"
+    measure_point_data_url = 'http://miv.opendata.belfla.be/miv/configuratie/xml'
     measure_point_xml = urllib.request.urlopen(measure_point_data_url)
     measure_point_root = etree.parse(measure_point_xml).getroot()
 
@@ -48,22 +52,7 @@ def get_measure_points_data():
             e_data[child.tag] = child.text
         measure_point_data[int(unique_id)] = e_data
 
-    data_url = "http://miv.opendata.belfla.be/miv/verkeersdata"
-    data_xml = urllib.request.urlopen(data_url)
-    root = etree.parse(data_xml).getroot()
-
     return measure_point_data
-
-
-def combine_data_measure_point(data, measure_point_data):
-    """
-    combines two datasets using the id's
-    :param data: clean data about
-    :param measure_point_data: uncleaned measure point data
-    :return: combined clean dict, ready to be converted to JSON
-    """
-
-    return data
 
 
 def clean_data(raw_data):
@@ -74,10 +63,37 @@ def clean_data(raw_data):
     """
     cleaned_data = {}
 
-    for key, key_data in raw_data:
-        pass
+    for key, key_data in raw_data.items():
+        working = False
+        if not bool(key_data['defect']) \
+                and bool(key_data['beschikbaar']) \
+                and bool(key_data['geldig']) \
+                and bool(key_data['actueel_publicatie']):
+            working = True
+        speed = int(key_data['voertuigsnelheid_rekenkundig'])
+        cleaned_data[key] = {
+            'speed': speed,
+            'working': working
+        }
 
     return cleaned_data
+
+
+def combine_data_measure_point(data, measure_point_data):
+    """
+    combines two datasets using the id's
+    :param data: clean data about
+    :param measure_point_data: uncleaned measure point data
+    :return: combined clean dict, ready to be converted to JSON
+    """
+
+    for key, key_data in data.items():
+        key_data['longitude'] = measure_point_data[key]['lengtegraad_EPSG_4326']
+        key_data['latitude'] = measure_point_data[key]['breedtegraad_EPSG_4326']
+        key_data['location'] = measure_point_data[key]['volledige_naam']
+        key_data['lane'] = measure_point_data[key]['Rijstrook']
+
+    return data
 
 
 def process_data(data):
@@ -85,9 +101,8 @@ def process_data(data):
     Add metadata and write to .json file
     :param data: python dict with clean data scraped from API
     """
-    file_content = json.dumps(data)
-    with open("data.json") as f:
-        f.write(file_content)
+    with open('data.json', 'w') as f:
+        json.dump(data, f)
 
 
 def main():
@@ -98,5 +113,5 @@ def main():
     process_data(combined_data)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
