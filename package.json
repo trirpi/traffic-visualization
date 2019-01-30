@@ -1,0 +1,19 @@
+{
+  "name": "rt-traffic-visualisation",
+  "version": "1.0.0",
+  "description": "Visualisation of traffic data in Flanders",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trirpi/RT-traffic-visualisation.git"
+  },
+  "author": "Tristan Trouwen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trirpi/RT-traffic-visualisation/issues"
+  },
+  "homepage": "https://github.com/trirpi/RT-traffic-visualisation#readme"
+}

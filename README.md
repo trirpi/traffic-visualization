@@ -15,5 +15,5 @@ location data: http://miv.opendata.belfla.be/miv/configuratie/xml
 ## Todo
 
 * Clean data
-* Provide really simple api (Flask)
+* Provide really simple api ()
 * Start with the D3js

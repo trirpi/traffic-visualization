@@ -1,0 +1,4 @@
+.idea
+data.json
+*.pyc
+node_modules
