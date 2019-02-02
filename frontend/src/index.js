@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import * as topojson from 'topojson-client';
 
 let geojson = {
   "type": "Feature",
@@ -24,15 +25,20 @@ let svg = d3.select("#content").append("svg")
    .attr("width", width)
    .attr("height", height);
 
-var url = "https://gist.githubusercontent.com/mbostock/4090846/raw/d534aba169207548a8a3d670c9c2cc719ff05c47/us.json"
-d3.json(url, function(error, topology) {
-    if (error) {
-        console.log(error);
-    }
+let url = "http://localhost:3000/data"
 
-  console.log("topojson", topology)
-  var geojson = topojson.feature(topology, topology.objects.counties);
-  console.log("geojson", geojson)
+d3.json(url).then(data => {
+    console.log("data", data);
 });
 
-console.log("ok");
+
+let url1 = "http://localhost:3000/belgium_data"
+d3.json(url1).then(topology => {
+    let geojson = topology;
+    console.log("geojson", geojson)
+
+    svg.selectAll("path")
+        .data(geojson.features)
+      .enter().append("path")
+        .attr("d", path);
+});
