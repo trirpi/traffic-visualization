@@ -101,7 +101,7 @@ def process_data(data):
     Add metadata and write to .json file
     :param data: python dict with clean data scraped from API
     """
-    with open('data.json', 'w') as f:
+    with open('backend/data.json', 'w') as f:
         json.dump(data, f)
 
 
@@ -111,6 +111,7 @@ def main():
     measure_data = get_measure_points_data()
     combined_data = combine_data_measure_point(data, measure_data)
     process_data(combined_data)
+    print("[*] Info: gathering data appeared to ran succesfully.")
 
 
 if __name__ == '__main__':
