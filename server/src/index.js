@@ -1,4 +1,4 @@
-let d3 = require('d3');
+import * as d3 from 'd3';
 /*
 let width = 900;
 let height = 600;
@@ -30,6 +30,9 @@ var geojson = {
     "name": "Dinagat Islands"
   }
 };
+
+const square = d3.selectAll("rect");
+square.style("fill", "orange");
 
 var projection = d3.geoEquirectangular();
 
