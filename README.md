@@ -13,7 +13,5 @@ more explanation: http://miv.opendata.belfla.be/miv-config.xsd
 location data: http://miv.opendata.belfla.be/miv/configuratie/xml
 
 ## Todo
-
-* Clean data
-* Provide really simple api ()
-* Start with the D3js
+1. get a front end up and running
+2. creating the d3 thing
