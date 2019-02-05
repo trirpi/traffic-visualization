@@ -21,10 +21,4 @@ app.get('/data', function (req, res) {
       });
 });
 
-app.get('/belgium_data', function (req, res) {
-    fs.readFile(__dirname + '/belgium.json', 'utf8', (err, data) => {
-         res.end(data);
-      });
-});
-
 console.log('[*] Info: Running on http://' + config.server + ':' + config.port.toString());
