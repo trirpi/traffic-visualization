@@ -6,7 +6,7 @@ let map = L.map('map');
 let osmUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 let osmAttrib='Map data © <a href="https://openstreetmap.org">OpenStreetMap</a>';
 
-let osm = new L.TileLayer(osmUrl, {minZoom: 6, maxZoom: 10, attribution: osmAttrib});
+let osm = new L.TileLayer(osmUrl, {minZoom: 6, maxZoom: 15, attribution: osmAttrib});
 
 map.setView(new L.LatLng(51.0, 4.45),8);
 map.addLayer(osm);
@@ -55,5 +55,4 @@ function updateMarkers() {
 };
 
 let updater = setInterval(updateMarkers, 2000);
-
 
