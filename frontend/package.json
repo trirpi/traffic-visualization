@@ -16,7 +16,6 @@
   "license": "ISC",
   "homepage": "https://github.com/trirpi/RT-traffic-visualisation#readme",
   "dependencies": {
-    "d3": "^5.8.0",
     "leaflet": "^1.4.0"
   },
   "devDependencies": {
