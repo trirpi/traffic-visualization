@@ -5,3 +5,4 @@
 */npm-debug.log
 frontend/dist
 venv
+*__pycache__
