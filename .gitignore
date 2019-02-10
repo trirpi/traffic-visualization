@@ -3,6 +3,5 @@
 *.pyc
 */node_modules
 */npm-debug.log
-frontend/dist
 venv
 *__pycache__
