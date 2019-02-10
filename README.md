@@ -1,5 +1,5 @@
 # Real-time traffic visualization
-> Website that displays real time data of Flanders.
+> Website that displays real time traffic data of Flanders.
 
 ![](header.png)
 
