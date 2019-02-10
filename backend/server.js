@@ -16,7 +16,7 @@ app.use(function(req, res, next) {
 
 
 app.get('/data', function (req, res) {
-    fs.readFile(__dirname + '../most_recent_data.json', 'utf8', (err, data) => {
+    fs.readFile(__dirname + '/scraper/most_recent_data.json', 'utf8', (err, data) => {
          res.end(data);
       });
 });

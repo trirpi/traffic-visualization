@@ -21,7 +21,7 @@ The data is available from these URL's:
 #### Scraping
 
 ```bash
-cd scraper
+cd backend/scraper
 virtualenv venv
 source venv/bin/activate
 pip install -r requirements.py
