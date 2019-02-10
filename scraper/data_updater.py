@@ -106,7 +106,7 @@ def process_data(data):
     with open('current_data.json', 'w') as f:
         json.dump(data, f)
     with open('old_data/{}.json'.format(datetime.datetime.now().isoformat()), 'w') as f:
-        json.dumps(data, f)
+        json.dump(data, f)
 
 
 def main():
