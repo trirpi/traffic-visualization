@@ -103,7 +103,7 @@ def process_data(data):
     Add metadata and write to .json file
     :param data: python dict with clean data scraped from API
     """
-    with open('current_data.json', 'w') as f:
+    with open('most_recent_data.json', 'w') as f:
         json.dump(data, f)
     with open('old_data/{}.json'.format(datetime.datetime.now().isoformat()), 'w') as f:
         json.dump(data, f)

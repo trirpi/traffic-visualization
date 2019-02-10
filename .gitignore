@@ -1,7 +1,7 @@
 .idea
-*/data.json
+/scraper/old_data/*
 *.pyc
 */node_modules
 */npm-debug.log
-venv
+/scraper/venv
 *__pycache__

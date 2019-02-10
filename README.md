@@ -86,3 +86,4 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 4. Remove/change the 'working' in api
 5. Get playback feature
 6. Put a server online that actually works
+7. Improve error handling, verbosity dataupdater
