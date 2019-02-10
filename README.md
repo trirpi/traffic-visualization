@@ -77,3 +77,12 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)
 5. Create a new Pull Request
+
+## Todo
+
+1. Create legend
+2. Make nice HTML and CSS
+3. Create better timestamps
+4. Remove/change the 'working' in api
+5. Get playback feature
+6. Put a server online that actually works
