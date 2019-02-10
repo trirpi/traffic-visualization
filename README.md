@@ -6,7 +6,7 @@
 
 ## Project info
 
-The government of Belgium has real-time data about the traffic in Belgium. This project will provide an api to make the data more compact. It will also feature a D3js front end with some interesting visualisations.
+The government of Belgium has real-time data about the traffic in Flanders. This project will provide an api to make the data more compact and easy to use. It will also feature front end with some interesting visualisations.
 
 The data is available from these URL's:
 
@@ -18,7 +18,7 @@ The data is available from these URL's:
 
 ## Development setup
 
-####Scraping
+#### Scraping
 
 ```bash
 cd scraper
@@ -47,11 +47,12 @@ cd frontend
 npm install
 ```
 
-For development server:
+To run development server:
 ```bash
 npm start
 ```
-For build
+
+To build the src files:
 ```bash
 npm build
 ```
