@@ -6,6 +6,7 @@
 import urllib.request
 import json
 import datetime
+import os
 
 from lxml import etree
 
@@ -103,9 +104,10 @@ def process_data(data):
     Add metadata and write to .json file
     :param data: python dict with clean data scraped from API
     """
-    with open('most_recent_data.json', 'w') as f:
+    basedir = os.path.dirname(os.path.abspath(__file__))
+    with open(os.path.join(basedir, 'most_recent_data.json'), 'w') as f:
         json.dump(data, f)
-    with open('old_data/{}.json'.format(datetime.datetime.now().isoformat()), 'w') as f:
+    with open(os.path.join(basedir, 'old_data/{}.json'.format(datetime.datetime.now().isoformat())), 'w') as f:
         json.dump(data, f)
 
 

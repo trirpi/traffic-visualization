@@ -5,3 +5,4 @@
 *__pycache__
 
 /backend/scraper/venv
+/backend/scraper/most_recent_data.json
