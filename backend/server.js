@@ -1,4 +1,6 @@
-#!/usr/bin/env node
+#!/usr/bin/env nodejs
+
+"use strict";
 
 let express = require('express');
 let app = express();
