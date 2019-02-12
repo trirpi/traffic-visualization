@@ -7,6 +7,7 @@ import urllib.request
 import json
 import datetime
 import os
+import sys
 
 from lxml import etree
 
@@ -20,7 +21,12 @@ def get_data():
     data = {}
 
     data_url = 'http://miv.opendata.belfla.be/miv/verkeersdata'
-    data_xml = urllib.request.urlopen(data_url)
+    try:
+        data_xml = urllib.request.urlopen(data_url)
+    except urllib.error.URLError as e:
+        print('[*] Error: downloading data failed with reason: ', e.reason)
+        sys.exit(1)
+    print('[*] Info: fetching data appeared to be succesfull.')
     root = etree.parse(data_xml).getroot()
 
     for measure_point in root.iter('meetpunt'):
@@ -43,7 +49,12 @@ def get_measure_points_data():
     :return: dictionary with keys measure points and their attributes in a dict
     """
     measure_point_data_url = 'http://miv.opendata.belfla.be/miv/configuratie/xml'
-    measure_point_xml = urllib.request.urlopen(measure_point_data_url)
+    try:
+        measure_point_xml = urllib.request.urlopen(measure_point_data_url)
+    except urllib.error.URLError as e:
+        print('[*] Error: downloading measure points data failed with reason: ', e.reason)
+        sys.exit(1)
+    print('[*] Info: fetching measure point data appeared to be succesfull.')
     measure_point_root = etree.parse(measure_point_xml).getroot()
 
     measure_point_data = {}
@@ -68,10 +79,9 @@ def clean_data(raw_data):
 
     for key, key_data in raw_data.items():
         working = False
-        if not bool(key_data['defect']) \
-                and bool(key_data['beschikbaar']) \
-                and bool(key_data['geldig']) \
-                and bool(key_data['actueel_publicatie']):
+        if not key_data['defect'] \
+                and key_data['beschikbaar'] <= 1 \
+                and key_data['geldig'] <=1:
             working = True
         speed = int(key_data['voertuigsnelheid_rekenkundig'])
         cleaned_data[key] = {
