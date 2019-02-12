@@ -22,7 +22,8 @@ function updateMarkers() {
         .then(response => {
             return response.json();
         }).then(data => {
-            for (var key in data) {
+            console.log(data["time"]);
+            for (var key in data["measure_points"]) {
                 let speed = data[key]['speed'];
                 let r = 0;
                 let g = 0;
