@@ -82,10 +82,8 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 
 1. Create legend
 2. Make nice HTML and CSS
-3. Create better timestamps
-4. Remove/change the 'working' in api
-5. Get playback feature
-6. Put a server online that actually works
-7. Improve error handling, verbosity dataupdater
-8. Make 'loading' indicator
+3. Get playback feature
+4. Create better guide to get it working in production
+5. Put a server online that actually works
+6. Make 'loading' indicator
 
