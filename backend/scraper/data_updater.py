@@ -122,14 +122,14 @@ def process_data(data):
 
     basedir = os.path.dirname(os.path.abspath(__file__))
     with open(os.path.join(basedir, 'most_recent_data.json'), 'w') as f:
-        json.dump(data, f)
+        json.dump(final_data, f)
 
     old_data_dir = os.path.join(basedir, 'old_data')
     # Create directory if it doesn't exist
     if not os.path.exists(old_data_dir):
         os.makedirs(old_data_dir)
     with open(os.path.join(old_data_dir, '{}.json'.format(datetime.datetime.now().isoformat())), 'w') as f:
-        json.dump(data, f)
+        json.dump(final_data, f)
 
 
 def main():

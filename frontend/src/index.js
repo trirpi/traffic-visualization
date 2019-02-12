@@ -22,9 +22,10 @@ function updateMarkers() {
         .then(response => {
             return response.json();
         }).then(data => {
-            console.log(data["time"]);
-            for (var key in data["measure_points"]) {
-                let speed = data[key]['speed'];
+            document.getElementById("title").innerHTML = "Traffic Flanders updated " + data['time'];
+            let measure_point_data = data['measure_points'];
+            for (var key in measure_point_data) {
+                let speed = measure_point_data[key]['speed'];
                 let r = 0;
                 let g = 0;
                 let b = 255;
@@ -40,13 +41,13 @@ function updateMarkers() {
                     }
                 }
 
-                let circle = L.circle([data[key]['latitude'], data[key]['longitude']], {
+                let circle = L.circle([measure_point_data[key]['latitude'], measure_point_data[key]['longitude']], {
                     color: 'rgb('+r/2+','+g/2+', '+b/2+')',
                     fillColor: 'rgb('+r+','+g+', '+b+')',
                     radius: 1000,
                     fillOpacity: 1,
                 }).addTo(map).bindPopup(
-                    'location: ' + data[key]['location'] + ', speed: ' + data[key]['speed'] + ', lane: ' + data[key]['lane']
+                    'location: ' + measure_point_data[key]['location'] + ', speed: ' + measure_point_data[key]['speed'] + ', lane: ' + measure_point_data[key]['lane']
                 );
                 markers.push(circle);
             }
