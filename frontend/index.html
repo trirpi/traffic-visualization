@@ -2,16 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta description="Realtime data about the traffic in Flanders, Belgium. Made by Tristan Trouwen. Check it out on Github!">
 
     <title>Traffic Flanders</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1 id="title">Loading Data</h1>
-    <div id="map"></div>
+    <div class="container-fluid main">
+        <div class="row">
+            <div class="col-lg-2 sidebar">
+                <ul class="sidebar">
+                    <li>Blue orange mode</li>
+                    <li>Info</li>
+
+                </ul>
+            </div>
+            <div class="col-lg-10 content">
+                <h1 id="title">Loading Data</h1>
+                <div id="map"></div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-10">
+                    <iframe src="https://ghbtns.com/github-btn.html?user=trirpi&repo=RT-traffic-visualization&type=star&count=true" frameborder="0" scrolling="0" width="90px" height="20px"></iframe>
+                    Made by <a class="footer" href="https://tristantrouwen.com">Tristan Trouwen</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script type="text/javascript" src="bundle.js"></script>
 </body>
