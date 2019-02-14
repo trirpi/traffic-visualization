@@ -1,12 +1,14 @@
 #map {
-    height: 500px;
+    height: 80vh;
 }
 
-html, body, .main, .row {
-    height: 100vh;
+html, body, .main {
+    height: 100%;
 }
 
-
+.row {
+    min-height: 100%;
+}
 
 .sidebar {
     background-color: #3b5998;
@@ -22,12 +24,12 @@ ul.sidebar {
     color: #8b9dc3;
 }
 
+div.footer {
+    position: fixed;
+    bottom: 0;
+}
+
 a.footer {
     color: inherit;
     text-decoration: none; 
-}
-
-.footer {
-    height:40px;
-    margin-top:-40px;
 }
