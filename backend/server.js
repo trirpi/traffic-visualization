@@ -9,6 +9,8 @@ let server = require('http').Server(app);
 
 let config = require(__dirname + '/config');
 
+let old_data = __dirname + '/scraper/old_data'
+
 
 server.listen(config.port);
 
@@ -19,10 +21,24 @@ app.use(function(req, res, next) {
 });
 
 
-app.get('/data', function (req, res) {
+app.get('/data', (req, res) => {
     fs.readFile(__dirname + '/scraper/most_recent_data.json', 'utf8', (err, data) => {
-         res.end(data);
-      });
+         res.json(JSON.parse(data));
+    });
+});
+
+app.get('/data_available', (req, res) => {
+    let old_data_dir = __dirname + '/scraper/old_data';
+    let files = fs.readdirSync(old_data_dir);
+    res.json({
+        "av": files
+    });
+});
+
+app.get('/data/:time', (req, res) => {
+    console.log(req.params.time);
+    res.end(req.params.time);
 });
 
 console.log('[*] Info: Running on http://' + config.server + ':' + config.port.toString());
+
