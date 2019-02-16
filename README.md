@@ -81,8 +81,10 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 ## Todo
 
 1. Create legend
-2. Create server feature to get data from last hour
-4. Create better guide to get it working in production
-5. Put a server online that actually works
-6. Make 'loading' indicator
+2. Create better guide to get it working in production
+3. Put a server online that actually works
+4. Make history 'today' and 'yesterday' work
+5. Make everything informative (legend, better explenation)
+6. Make everything beautiful
+7. Ask dataset owners permission to scrape every minute or so.
 
