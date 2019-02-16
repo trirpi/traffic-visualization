@@ -31,7 +31,7 @@ function getColor(speed) {
             b = 0;
         }
     }
-    return [r, g, b]; 
+    return [r, g, b];
 }
 
 function getFormattedColor(speed) {
@@ -44,19 +44,17 @@ function getDarkFormattedColor(speed) {
     return 'rgb('+colors[0]/2+','+colors[1]/2+', '+colors[2]/2+')';
 }
 
-function updateMarkers(data, old_markers) {
-    document.getElementById("title").innerHTML = "Traffic Flanders updated " + data['time'];
-    let measure_point_data = data['measure_points'];
-    for (var key in measure_point_data) {
-        let speed = measure_point_data[key]['speed'];
+function updateMarkers(measure_points, old_markers) {
+    for (var key in measure_points) {
+        let speed = measure_points[key]['speed'];
 
-        let circle = L.circle([measure_point_data[key]['latitude'], measure_point_data[key]['longitude']], {
+        let circle = L.circle([measure_points[key]['latitude'], measure_points[key]['longitude']], {
             color: getFormattedColor(speed),
             fillColor: getDarkFormattedColor(speed),
             radius: 1000,
             fillOpacity: 1,
         }).addTo(map).bindPopup(
-            'location: ' + measure_point_data[key]['location'] + ', speed: ' + measure_point_data[key]['speed'] + ', lane: ' + measure_point_data[key]['lane']
+            'location: ' + measure_points[key]['location'] + ', speed: ' + measure_points[key]['speed'] + ', lane: ' + measure_points[key]['lane']
         );
         markers.push(circle);
     }
@@ -64,19 +62,22 @@ function updateMarkers(data, old_markers) {
 }
 
 function update() {
-    fetch(url)
-        .then(response => {
-            return response.json();
-        }).then(data => {
-            old_markers = markers;
-            markers = [];
-            console.log("update")
-            old_markers = updateMarkers(data, old_markers);
-            old_markers.forEach((marker) => marker.remove());
-            old_markers = [];
-        }).catch((error) => {
-            console.log(error)
-        });
+    fetch(url).then(response => {
+        return response.json();
+    }).then(response => {
+        let date = new Date(response['data']['time'])
+        document.getElementById("title").innerHTML = "Traffic Flanders updated " + date.toLocaleDateString();
+
+        // this should probably be cleaned a bit
+        // currently first puts all new markers and after that, removes the old ones
+        old_markers = markers;
+        markers = [];
+        old_markers = updateMarkers(response['data']['measure_points'], old_markers);
+        old_markers.forEach((marker) => marker.remove());
+        old_markers = [];
+    }).catch((error) => {
+        console.log(error)
+    });
 }
 
 let updater = setInterval(update, 2000);
