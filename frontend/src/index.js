@@ -1,22 +1,24 @@
 import * as L from 'leaflet';
 
-let map = L.map('map');
+// API url
+let api_url = 'http://localhost:3000';
 
+// Map settings
+let map = L.map('map');
 let osmUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 let osmAttrib='Map data © <a href="https://openstreetmap.org">OpenStreetMap</a>';
-
 let osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 20, attribution: osmAttrib});
-
 map.setView(new L.LatLng(51.0, 4.45),9);
 map.addLayer(osm);
 
-let url = 'http://localhost:3000/data';
+// string which indicates which data we are viewing, e.g. '2019-02-16T11:10:22.319138.json' or 'current'
+let viewFile = 'current';
 
 let markers = [];
 let old_markers = [];
 
 function getColor(speed) {
-    // get data of blue-orange thingie
+    // TODO: get data of blue-orange checkmark here
     let r = 0;
     let g = 0;
     let b = 255;
@@ -45,6 +47,8 @@ function getDarkFormattedColor(speed) {
 }
 
 function updateMarkers(measure_points, old_markers) {
+    old_markers = markers;
+    markers = [];
     for (var key in measure_points) {
         let speed = measure_points[key]['speed'];
 
@@ -58,27 +62,67 @@ function updateMarkers(measure_points, old_markers) {
         );
         markers.push(circle);
     }
-    return old_markers;
+    old_markers.forEach((marker) => marker.remove());
+    old_markers = [];
 }
 
-function update() {
+function updateData(url) {
     fetch(url).then(response => {
         return response.json();
     }).then(response => {
         let date = new Date(response['data']['time'])
-        document.getElementById("title").innerHTML = "Traffic Flanders updated " + date.toLocaleDateString();
+        document.getElementById('title').innerHTML = 'Traffic Flanders updated ' + date.toLocaleString();
 
-        // this should probably be cleaned a bit
-        // currently first puts all new markers and after that, removes the old ones
-        old_markers = markers;
-        markers = [];
-        old_markers = updateMarkers(response['data']['measure_points'], old_markers);
-        old_markers.forEach((marker) => marker.remove());
-        old_markers = [];
+        updateMarkers(response['data']['measure_points'], old_markers);
     }).catch((error) => {
         console.log(error)
     });
 }
 
-let updater = setInterval(update, 2000);
+
+function updateAll() {
+    if (viewFile == 'current') {
+        updateData(api_url + '/data')
+    } else {
+        updateData(api_url + '/data/' + viewFile);
+    }
+    updateHistoryTable()
+}
+
+
+function updateHistoryTable() {
+    fetch(api_url + '/data_available').then(response => {
+        return response.json();
+    }).then(response => {
+        let available = response['available'];
+        // update history tab
+        let ul = document.getElementById('history');
+        // remove old
+        while (ul.firstChild) {
+            ul.removeChild(ul.firstChild );
+        }
+        // append new ones
+        available.forEach(filename => {
+            let button = document.createElement('input');
+            button.type = 'button';
+            button.value = new Date(filename.substring(0,filename.length -5)).toLocaleTimeString();
+            button.addEventListener('click', () => changeViewFile(filename));
+
+            let li = document.createElement('li');
+            li.appendChild(button);
+            ul.appendChild(li);
+        });
+        document.getElementById('history')
+    });
+}
+
+
+function changeViewFile(filename) {
+    viewFile = filename; // global var, cleanup pls
+    updateData(api_url + '/data/' + viewFile);
+}
+
+// program updates every 5 seconds
+updateAll();
+let updater = setInterval(updateAll(), 5000);
 
