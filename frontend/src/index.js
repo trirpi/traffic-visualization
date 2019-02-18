@@ -17,6 +17,25 @@ let viewFile = 'current';
 let markers = [];
 let old_markers = [];
 
+function isToday(date) {
+    let today = new Date();
+    if (date.toDateString() == today.toDateString()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function isYesterday(date) {
+    let today = new Date();
+    let yesterday = today.setDate(today.getDate() - 1);
+    if (date.toDateString() == yesterday.toDateString()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function getColor(speed) {
     // TODO: get data of blue-orange checkmark here
     let r = 0;
