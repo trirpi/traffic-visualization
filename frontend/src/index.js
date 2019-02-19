@@ -89,7 +89,7 @@ function updateData(url) {
         return response.json();
     }).then(response => {
         let date = new Date(response['data']['time'])
-        document.getElementById('title').innerHTML = 'Traffic Flanders updated ' + date.toUTCString();
+        document.getElementById('updated').innerHTML = 'updated ' + date.toUTCString();
 
         updateMarkers(response['data']['measure_points'], old_markers);
     }).catch((error) => {

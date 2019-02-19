@@ -24,6 +24,10 @@ ul.sidebar {
     color: #8b9dc3;
 }
 
+small.text-muted {
+    color: #9caed4!important;
+}
+
 div.footer {
     position: fixed;
     bottom: 0;
