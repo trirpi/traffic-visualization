@@ -19,6 +19,7 @@ let old_markers = [];
 
 function isToday(date) {
     let today = new Date();
+    console.log(today.toDateString(), date.toDateString())
     if (date.toDateString() == today.toDateString()) {
         return true;
     } else {
@@ -27,8 +28,7 @@ function isToday(date) {
 }
 
 function isYesterday(date) {
-    let today = new Date();
-    let yesterday = today.setDate(today.getDate() - 1);
+    let yesterday = (d => new Date(d.setDate(d.getDate()-1)) )(new Date);
     if (date.toDateString() == yesterday.toDateString()) {
         return true;
     } else {
@@ -90,7 +90,7 @@ function updateData(url) {
         return response.json();
     }).then(response => {
         let date = new Date(response['data']['time'])
-        document.getElementById('title').innerHTML = 'Traffic Flanders updated ' + date.toLocaleString();
+        document.getElementById('title').innerHTML = 'Traffic Flanders updated ' + date.toUTCString();
 
         updateMarkers(response['data']['measure_points'], old_markers);
     }).catch((error) => {
@@ -115,24 +115,39 @@ function updateHistoryTable() {
     }).then(response => {
         let available = response['available'];
         // update history tab
-        let ul = document.getElementById('history');
+        let today_ul = document.getElementById('today');
+        let yesterday_ul = document.getElementById('yesterday');
         // remove old
-        while (ul.firstChild) {
-            ul.removeChild(ul.firstChild );
+        while (today_ul.firstChild) {
+            today_ul.removeChild(today_ul.firstChild);
+        }
+        while (yesterday_ul.firstChild) {
+            yesterday_ul.removeChild(yesterday_ul.firstChild);
         }
         // append new ones
         available.forEach(filename => {
-            let button = document.createElement('input');
-            button.type = 'button';
-            button.value = new Date(filename.substring(0,filename.length -5)).toLocaleTimeString();
-            button.addEventListener('click', () => changeViewFile(filename));
-
-            let li = document.createElement('li');
-            li.appendChild(button);
-            ul.appendChild(li);
+            let date = new Date(filename.substring(0,filename.length -5));
+            if (isToday(date)) {
+                addHistoryButton(today_ul, date);
+            } else if (isYesterday(date)) {
+                addHistoryButton(yesterday_ul, date);
+            }
         });
         document.getElementById('history')
     });
+}
+
+
+function addHistoryButton(element, date) {
+    let button = document.createElement('input');
+    button.type = 'button';
+    button.value = date.toLocaleTimeString();
+    button.addEventListener('click', () => changeViewFile(filename));
+
+    let li = document.createElement('li');
+    li.appendChild(button);
+    element.appendChild(li);
+
 }
 
 
@@ -143,5 +158,5 @@ function changeViewFile(filename) {
 
 // program updates every 5 seconds
 updateAll();
-let updater = setInterval(updateAll(), 5000);
+let updater = setInterval(updateAll, 5000);
 
