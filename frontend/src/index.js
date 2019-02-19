@@ -19,7 +19,6 @@ let old_markers = [];
 
 function isToday(date) {
     let today = new Date();
-    console.log(today.toDateString(), date.toDateString())
     if (date.toDateString() == today.toDateString()) {
         return true;
     } else {
@@ -128,9 +127,9 @@ function updateHistoryTable() {
         available.forEach(filename => {
             let date = new Date(filename.substring(0,filename.length -5));
             if (isToday(date)) {
-                addHistoryButton(today_ul, date);
+                addHistoryButton(today_ul, date, filename);
             } else if (isYesterday(date)) {
-                addHistoryButton(yesterday_ul, date);
+                addHistoryButton(yesterday_ul, date, filename);
             }
         });
         document.getElementById('history')
@@ -138,7 +137,7 @@ function updateHistoryTable() {
 }
 
 
-function addHistoryButton(element, date) {
+function addHistoryButton(parent_element, date, filename) {
     let button = document.createElement('input');
     button.type = 'button';
     button.value = date.toLocaleTimeString();
@@ -146,7 +145,7 @@ function addHistoryButton(element, date) {
 
     let li = document.createElement('li');
     li.appendChild(button);
-    element.appendChild(li);
+    parent_element.appendChild(li);
 
 }
 
