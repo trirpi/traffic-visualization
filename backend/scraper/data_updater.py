@@ -116,7 +116,7 @@ def process_data(data):
     :param data: python dict with clean data scraped from API
     """
     final_data = {
-        "time": datetime.datetime.now().isoformat(),
+        "time": datetime.datetime.now(datetime.timezone.utc).astimezone().isoformat(),
         "measure_points": data
     }
 
@@ -128,7 +128,7 @@ def process_data(data):
     # Create directory if it doesn't exist
     if not os.path.exists(old_data_dir):
         os.makedirs(old_data_dir)
-    with open(os.path.join(old_data_dir, '{}.json'.format(datetime.datetime.now().isoformat())), 'w') as f:
+    with open(os.path.join(old_data_dir, '{}.json'.format(datetime.datetime.now(datetime.timezone.utc).astimezone().isoformat())), 'w') as f:
         json.dump(final_data, f)
 
 
