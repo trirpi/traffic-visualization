@@ -36,22 +36,40 @@ function isYesterday(date) {
 }
 
 function getColor(speed) {
-    // TODO: get data of blue-orange checkmark here
-    let r = 0;
-    let g = 0;
-    let b = 255;
-    if (speed > 0 && speed <= 250) {
-        if (speed > 85) {
-            r = 0;
-            g = 255;
-            b = 0;
-        } else {
-            r = 255;
-            g = speed*2;
-            b = 0;
+    let checkmark = document.getElementById('bluebrown').checked;
+    if (!checkmark) {
+        let r = 0;
+        let g = 0;
+        let b = 255;
+        if (speed > 0 && speed <= 250) {
+            if (speed > 95) {
+                r = 0;
+                g = 255;
+                b = 0;
+            } else {
+                r = 255;
+                g = speed*2;
+                b = 0;
+            }
         }
+        return [r, g, b];
+    } else {
+        let r = 255;
+        let g = 255;
+        let b = 255;
+        if (speed > 0 && speed <= 250) {
+            if (speed > 95) {
+                r = 255;
+                g = 205;
+                b = 0;
+            } else {
+                r = 10;
+                g = 10;
+                b = speed*4;
+            }
+        }
+        return [r, g, b];
     }
-    return [r, g, b];
 }
 
 function getFormattedColor(speed) {
@@ -73,7 +91,7 @@ function updateMarkers(measure_points, old_markers) {
         let circle = L.circle([measure_points[key]['latitude'], measure_points[key]['longitude']], {
             color: getFormattedColor(speed),
             fillColor: getDarkFormattedColor(speed),
-            radius: 1000,
+            radius: 10000/(map.getZoom()), // this should get smaller when zooming in
             fillOpacity: 1,
         }).addTo(map).bindPopup(
             'location: ' + measure_points[key]['location'] + ', speed: ' + measure_points[key]['speed'] + ', lane: ' + measure_points[key]['lane']
@@ -140,7 +158,7 @@ function updateHistoryTable() {
 function addHistoryButton(parent_element, date, filename) {
     let button = document.createElement('input');
     button.type = 'button';
-    button.value = date.toLocaleTimeString();
+    button.value = date.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
     button.addEventListener('click', () => changeViewFile(filename));
 
     let li = document.createElement('li');
