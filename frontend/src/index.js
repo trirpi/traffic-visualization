@@ -15,7 +15,7 @@ map.addLayer(osm);
 let viewFile = 'current';
 
 let markers = [];
-let old_markers = [];
+let oldMarkers = [];
 
 function isToday(date) {
     let today = new Date();
@@ -36,38 +36,22 @@ function isYesterday(date) {
 }
 
 function getColor(speed) {
-    let checkmark = document.getElementById('bluebrown').checked;
-    if (!checkmark) {
-        let r = 0;
-        let g = 0;
-        let b = 255;
-        if (speed > 0 && speed <= 250) {
-            if (speed > 95) {
-                r = 0;
-                g = 255;
-                b = 0;
-            } else {
-                r = 255;
-                g = speed*2;
-                b = 0;
-            }
-        }
+    let orangeBlue = document.getElementById('bluebrown').checked;
+    if (!validMeasurement(speed)) {
+        // return black
+        return [0,0,0];
+    }
+    if (!orangeBlue) {
+        // return red to green scale, green when fast, red when slow
+        let r = (255 * speed) / 130
+        let g = (255 * (130 - speed)) / 130 
+        let b = 0
         return [r, g, b];
     } else {
-        let r = 255;
-        let g = 255;
-        let b = 255;
-        if (speed > 0 && speed <= 250) {
-            if (speed > 95) {
-                r = 255;
-                g = 205;
-                b = 0;
-            } else {
-                r = 10;
-                g = 10;
-                b = speed*4;
-            }
-        }
+        // return orange to blue scale, blue when fast, orange when slow
+        let r = (255 * (130 - speed)) / 130 
+        let g = (255 * (130 - speed)) / 130 
+        let b = (255 * speed) / 130
         return [r, g, b];
     }
 }
@@ -82,24 +66,35 @@ function getDarkFormattedColor(speed) {
     return 'rgb('+colors[0]/2+','+colors[1]/2+', '+colors[2]/2+')';
 }
 
-function updateMarkers(measure_points, old_markers) {
-    old_markers = markers;
-    markers = [];
-    for (var key in measure_points) {
-        let speed = measure_points[key]['speed'];
-
-        let circle = L.circle([measure_points[key]['latitude'], measure_points[key]['longitude']], {
-            color: getFormattedColor(speed),
-            fillColor: getDarkFormattedColor(speed),
-            radius: 10000/(map.getZoom()), // this should get smaller when zooming in
-            fillOpacity: 1,
-        }).addTo(map).bindPopup(
-            'location: ' + measure_points[key]['location'] + ', speed: ' + measure_points[key]['speed'] + ', lane: ' + measure_points[key]['lane']
-        );
-        markers.push(circle);
+function validMeasurement(speed) {
+    if (speed > 0 && speed <= 250) {
+        return true;
     }
-    old_markers.forEach((marker) => marker.remove());
-    old_markers = [];
+    return false;
+}
+
+function updateMarkers(measurePoints, oldMarkers) {
+    oldMarkers = markers;
+    markers = [];
+    for (var key in measurePoints) {
+        let speed = measurePoints[key]['speed'];
+
+        let showUnavailable = document.getElementById('unavailable').checked;
+
+        if (validMeasurement(speed) || showUnavailable) {
+            let circle = L.circle([measurePoints[key]['latitude'], measurePoints[key]['longitude']], {
+                color: getFormattedColor(speed),
+                fillColor: getDarkFormattedColor(speed),
+                radius: 10000/(map.getZoom()), // this should get smaller when zooming in
+                fillOpacity: 1,
+            }).addTo(map).bindPopup(
+                'location: ' + measurePoints[key]['location'] + ', speed: ' + measurePoints[key]['speed'] + ', lane: ' + measurePoints[key]['lane']
+            );
+            markers.push(circle);
+        }
+    }
+    oldMarkers.forEach((marker) => marker.remove());
+    oldMarkers = [];
 }
 
 function updateData(url) {
@@ -109,7 +104,7 @@ function updateData(url) {
         let date = new Date(response['data']['time'])
         document.getElementById('updated').innerHTML = 'updated ' + date.toUTCString();
 
-        updateMarkers(response['data']['measure_points'], old_markers);
+        updateMarkers(response['data']['measure_points'], oldMarkers);
     }).catch((error) => {
         console.log(error)
     });
