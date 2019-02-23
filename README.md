@@ -83,6 +83,5 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 1. Create better guide to get it working in production
 2. Put a server online that actually works
 3. Make everything informative (legend, better explenation)
-4. Make blue-orange mode work
-5. Ask dataset owners permission to scrape every minute or so.
-
+4. Ask dataset owners permission to scrape every minute or so.
+5. Make history compact
