@@ -43,8 +43,8 @@ function getColor(speed) {
     }
     if (!orangeBlue) {
         // return red to green scale, green when fast, red when slow
-        let r = (255 * speed) / 130
-        let g = (255 * (130 - speed)) / 130 
+        let r = (255 * (170-speed)) / 130
+        let g = (255 * (speed)) / 130 
         let b = 0
         return [r, g, b];
     } else {
