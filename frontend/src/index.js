@@ -117,7 +117,8 @@ function updateAll() {
     } else {
         updateData(api_url + '/data/' + viewFile);
     }
-    updateHistoryTable()
+    updateLegend();
+    updateHistoryTable();
 }
 
 
@@ -145,7 +146,7 @@ function updateHistoryTable() {
                 addHistoryButton(yesterday_ul, date, filename);
             }
         });
-        document.getElementById('history')
+        document.getElementById('history');
     });
 }
 
@@ -167,6 +168,21 @@ function changeViewFile(filename) {
     viewFile = filename; // global var, cleanup pls
     updateData(api_url + '/data/' + viewFile);
 }
+
+function updateLegend() {
+    let legend0 = document.getElementById('legend0');
+    legend0.style.backgroundColor = getFormattedColor(10);
+    let legend1 = document.getElementById('legend1');
+    legend1.style.backgroundColor = getFormattedColor(40);
+    let legend2 = document.getElementById('legend2');
+    legend2.style.backgroundColor = getFormattedColor(70);
+    let legend3 = document.getElementById('legend3');
+    legend3.style.backgroundColor = getFormattedColor(100);
+    let legend4 = document.getElementById('legend4');
+    legend4.style.backgroundColor = getFormattedColor(130);
+}
+
+
 
 // program updates every 5 seconds
 updateAll();
