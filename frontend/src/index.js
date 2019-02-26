@@ -36,7 +36,7 @@ function isYesterday(date) {
 }
 
 function getColor(speed) {
-    let orangeBlue = document.getElementById('bluebrown').checked;
+    let orangeBlue = document.getElementById('blueorange').checked;
     if (!validMeasurement(speed)) {
         // return black
         return [0,0,0];
@@ -50,7 +50,7 @@ function getColor(speed) {
     } else {
         // return orange to blue scale, blue when fast, orange when slow
         let r = (255 * (130 - speed)) / 130 
-        let g = (255 * (130 - speed)) / 130 
+        let g = 128 
         let b = (255 * speed) / 130
         return [r, g, b];
     }
@@ -186,5 +186,10 @@ function updateLegend() {
 
 // program updates every 5 seconds
 updateAll();
+let checkmarkBlueorange = document.getElementById('blueorange');
+let checkmarkUnavailable = document.getElementById('unavailable');
+checkmarkBlueorange.onchange= () => updateAll();
+checkmarkUnavailable.onchange= () => updateAll();
+
 let updater = setInterval(updateAll, 5000);
 
