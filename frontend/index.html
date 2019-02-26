@@ -13,7 +13,7 @@
 <body>
     <div class="container-fluid main">
         <div class="row">
-            <div class="col-lg-3 sidebar" id="sticky-sidebar">
+            <div class="col-lg-3 order-lg-1 order-2 sidebar" id="sticky-sidebar">
                 <div class="sticky-top pt-5">
                     <ul class="sidebar">
                         <li>
@@ -47,14 +47,13 @@
                             <li><input id="blueorange" type="checkbox"> Use blue and orange colors</li>
                             <li><input id="unavailable" type="checkbox"> Show unavailable measure points</li>
                         </li>
-                    </ul>
-                    <div class="footer">
+                        <hr>
                         <iframe src="https://ghbtns.com/github-btn.html?user=trirpi&repo=RT-traffic-visualization&type=star&count=true" frameborder="0" scrolling="0" width="90px" height="20px"></iframe>
                         Made by <a class="footer" href="https://tristantrouwen.com">Tristan Trouwen</a>
-                    </div>
+                    </ul>
                 </div>
             </div>
-            <div class="col-lg-9 content">
+            <div class="col-lg-9 order-1 order-lg-2 content">
                 <h1 id="title">Traffic Flanders <small class="text-muted" id="updated">loading ...</small></title>
                 <div id="map"></div>
             </div>
