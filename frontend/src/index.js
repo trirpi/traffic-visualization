@@ -128,43 +128,39 @@ function updateHistoryTable() {
     }).then(response => {
         let available = response['available'];
         // update history tab
-        let today_ul = document.getElementById('today');
-        let yesterday_ul = document.getElementById('yesterday');
+        let today_select = document.getElementById('today');
+        let yesterday_select = document.getElementById('yesterday');
         // remove old
-        while (today_ul.firstChild) {
-            today_ul.removeChild(today_ul.firstChild);
+        while (today_select.firstChild) {
+            today_select.removeChild(today_ul.firstChild);
         }
-        while (yesterday_ul.firstChild) {
-            yesterday_ul.removeChild(yesterday_ul.firstChild);
+        while (yesterday_select.firstChild) {
+            yesterday_select.removeChild(yesterday_select.firstChild);
         }
         // append new ones
         available.forEach(filename => {
             let date = new Date(filename.substring(0,filename.length -5));
             if (isToday(date)) {
-                addHistoryButton(today_ul, date, filename);
+                addHistoryOption(today_select, date, filename);
             } else if (isYesterday(date)) {
-                addHistoryButton(yesterday_ul, date, filename);
+                addHistoryOption(yesterday_select, date, filename);
             }
         });
-        document.getElementById('history');
     });
 }
 
 
-function addHistoryButton(parent_element, date, filename) {
-    let button = document.createElement('input');
-    button.type = 'button';
-    button.value = date.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
-    button.addEventListener('click', () => changeViewFile(filename));
+function addHistoryOption(parent_element, date, filename) {
+    let option = document.createElement('option');
+    option.value = filename;
+    option.innerHTML = date.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'});
+    //button.addEventListener('click', () => changeViewFile(filename));
 
-    let li = document.createElement('li');
-    li.appendChild(button);
-    parent_element.appendChild(li);
-
+    parent_element.appendChild(option);
 }
 
 
-function changeViewFile(filename) {
+window.changeViewFile = function(filename) {
     viewFile = filename; // global var, cleanup pls
     updateData(api_url + '/data/' + viewFile);
 }
@@ -183,13 +179,12 @@ function updateLegend() {
 }
 
 
-
 // program updates every 5 seconds
 updateAll();
 let checkmarkBlueorange = document.getElementById('blueorange');
 let checkmarkUnavailable = document.getElementById('unavailable');
-checkmarkBlueorange.onchange= () => updateAll();
-checkmarkUnavailable.onchange= () => updateAll();
+checkmarkBlueorange.onchange = () => updateAll();
+checkmarkUnavailable.onchange = () => updateAll();
 
 let updater = setInterval(updateAll, 5000);
 
