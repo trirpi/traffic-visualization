@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta description="Realtime data about the traffic in Flanders, Belgium. Made by Tristan Trouwen. Check it out on Github!">
+
+    <title>Traffic Flanders</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container-fluid main">
+        <div class="row">
+            <div class="col-lg-3 order-lg-1 order-2 sidebar" id="sticky-sidebar">
+                <div class="sticky-top pt-5">
+                    <ul class="sidebar">
+                        <li>
+                            <h4>Info</h4>
+                            <p>This project displays traffic data from Flanders. You can find the raw data on <a class="info" href="http://miv.opendata.belfla.be/miv/verkeersdata">this goverment website</a>. You can click on the dots for detailed information. The time is in UTC+1. If you like the project, don't forget to give it a star on <a class="info" href="https://github.com/trirpi/RT-traffic-vizualization">Github</a>.
+                        </li>
+                        <li>
+                            <h4>Legend</h4>
+                            <p class="mb-0"><b>speed: </b></p>
+                            <p class="legend" id="legend0"> - 10 - </p>
+                            <p class="legend" id="legend1"> - 40 - </p>
+                            <p class="legend" id="legend2"> - 70 - </p>
+                            <p class="legend" id="legend3"> - 100 - </p>
+                            <p class="legend" id="legend4"> - 130 - </p>
+                            <p style="background-color: black" class="legend"> - unavailable - </p>
+                            <p>Speeds are in Km/h. You can click the dots for precise information.</p>
+                        </li>
+                        <li class="pt-2">
+                            <h4>History</h4>
+                            <p class="mb-0 mt-3"><b>Today</b></p>
+                            <select id="today" onChange="changeViewFile(this.value)"></select>
+
+                            <p class="mb-0 mt-3"><b>Yesterday</b></p>
+                            <select id="yesterday" onChange="changeViewFile(this.value)"></select>
+                        </li>
+                        <li class="pt-2">
+                            <h4>Settings</h4>
+                            <li><input id="blueorange" type="checkbox"> Use blue and orange colors</li>
+                            <li><input id="unavailable" type="checkbox"> Show unavailable measure points</li>
+                        </li>
+                        <hr>
+                        <iframe src="https://ghbtns.com/github-btn.html?user=trirpi&repo=RT-traffic-visualization&type=star&count=true" frameborder="0" scrolling="0" width="90px" height="20px"></iframe>
+                        Made by <a class="footer" href="https://tristantrouwen.com">Tristan Trouwen</a>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9 order-1 order-lg-2 content">
+                <h1 id="title">Traffic Flanders <small class="text-muted" id="updated">loading ...</small></title>
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="bundle.js"></script>
+</body>
+</html>
