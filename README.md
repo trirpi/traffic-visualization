@@ -33,33 +33,26 @@ pip install -r requirements.py
 
 Now you can run `python data_updater.py` to scrape the website. The generated json file will be saved in the folder `old_data` with its timestamp as a name and will overwrite the file `most_recent_data.json`.
 
-#### API
+#### Frontend
 
-Only serves static json, so probably better to let a webserve like nginx handle this.
+First change the url to the API's url using the variable `api_url`. Now we need to build everything. Then we need to copy the files to the public folder of our backend.
+
+```bash
+cd frontend
+npm install
+webpack -p
+mkdir ../backend/public
+cp dist/* ../backend/public
+```
+
+#### Backend
+
+Starting the backend is simple
 
 ```bash
 cd backend
 npm install
 npm start
-```
-
-#### Frontend
-
-Only serves static content, so best to let a webserver like nginx serve only the `index.html`, `style.css` and `dist/bundle.js` files.
-
-```bash
-cd frontend
-npm install
-```
-
-To run development server:
-```bash
-npm start
-```
-
-To build the src files:
-```bash
-npm build
 ```
 
 ## Release History
@@ -85,6 +78,4 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 
 ## Todo
 
-1. Create better guide to get it working in production
-2. Put a server online that actually works
-3. Ask dataset owners permission to scrape every minute or so.
+1. Put a server online that actually works
