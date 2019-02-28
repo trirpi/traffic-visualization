@@ -6,7 +6,7 @@
 
 ## Project info
 
-The government of Belgium has real-time data about the traffic in Flanders. This project will provide an api to make the data more compact and easy to use. It will also feature front end with some interesting visualisations.
+The government of Belgium has real-time data about the traffic in Flanders. In this project, I built a website that visualizes the speed of the cars.
 
 The data is available from these URL's:
 
@@ -18,15 +18,20 @@ The data is available from these URL's:
 
 ## Development setup
 
-#### Scraping
+The project consists of a nodejs API, some static front end files and a scraping script.
+
+The setup is a bit tedious.
+
+#### Install scraper
 
 ```bash
 cd backend/scraper
 virtualenv venv
 source venv/bin/activate
 pip install -r requirements.py
-python data_updater.py
 ```
+
+Now you can run `python data_updater.py` to scrape the website. The generated json file will be saved in the folder `old_data` with its timestamp as a name and will overwrite the file `most_recent_data.json`.
 
 #### API
 
