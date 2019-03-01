@@ -47,7 +47,7 @@ cp dist/* ../backend/public
 
 #### Backend
 
-Starting the backend is simple
+First change the `config.js` file. After that it is relatively simple.
 
 ```bash
 cd backend
@@ -76,6 +76,3 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 4. Push to the branch (`git push origin feature/fooBar`)
 5. Create a new Pull Request
 
-## Todo
-
-1. Put a server online that actually works
