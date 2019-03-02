@@ -102,7 +102,7 @@ function updateData(url) {
         return response.json();
     }).then(response => {
         let date = new Date(response['data']['time'])
-        document.getElementById('updated').innerHTML = 'updated ' + date.toUTCString();
+        document.getElementById('updated').innerHTML = 'updated ' + date.toLocaleString('en-US', {'day': 'numeric', 'month': 'long', 'year': 'numeric', 'hour': 'numeric', 'minute': 'numeric'});
 
         updateMarkers(response['data']['measure_points'], oldMarkers);
     }).catch((error) => {
