@@ -1,5 +1,5 @@
-# Real-time traffic visualization
-> Website that displays real time traffic data of Flanders.
+# Traffic visualization
+> Website that displays traffic data of Flanders almost in real time.
 
 ![](header.png)
 
@@ -66,11 +66,11 @@ npm start
 
 Distributed under the MIT license. See ``LICENSE`` for more information.
 
-[https://github.com/trirpi/RT-traffic-visualization](https://github.com/trirpi)
+[https://github.com/trirpi/traffic-visualization](https://github.com/trirpi/traffic-visualization)
 
 ## Contributing
 
-1. Fork it (<https://github.com/yourname/RT-traffic-visualization/fork>)
+1. Fork it (<https://github.com/yourname/traffic-visualization/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)
