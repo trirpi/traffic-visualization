@@ -1,5 +1,5 @@
 {
-  "name": "rt-traffic-frontend",
+  "name": "traffic-frontend",
   "version": "1.0.0",
   "description": "Visualisation of traffic data in Flanders",
   "main": "index.js",
@@ -10,11 +10,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/trirpi/RT-traffic-visualisation.git"
+    "url": "git+https://github.com/trirpi/traffic-visualization.git"
   },
   "author": "Tristan Trouwen",
   "license": "ISC",
-  "homepage": "https://github.com/trirpi/RT-traffic-visualisation#readme",
+  "homepage": "https://github.com/trirpi/traffic-visualization#readme",
   "dependencies": {
     "leaflet": "^1.4.0"
   },
