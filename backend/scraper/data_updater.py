@@ -104,13 +104,17 @@ def combine_data_measure_point(data, measure_point_data):
     :param measure_point_data: uncleaned measure point data
     :return: combined clean dict, ready to be converted to JSON
     """
-
+    to_delete_keys = [] # keep track of everything to delete
     for key, key_data in data.items():
-        key_data['longitude'] = float(measure_point_data[key]['lengtegraad_EPSG_4326'].replace(',', '.'))
-        key_data['latitude'] = float(measure_point_data[key]['breedtegraad_EPSG_4326'].replace(',', '.'))
-        key_data['location'] = measure_point_data[key]['volledige_naam']
-        key_data['lane'] = measure_point_data[key]['Rijstrook']
-
+        try:
+            key_data['longitude'] = float(measure_point_data[key]['lengtegraad_EPSG_4326'].replace(',', '.'))
+            key_data['latitude'] = float(measure_point_data[key]['breedtegraad_EPSG_4326'].replace(',', '.'))
+            key_data['location'] = measure_point_data[key]['volledige_naam']
+            key_data['lane'] = measure_point_data[key]['Rijstrook']
+        except KeyError:
+            to_delete_keys.append(key)
+    for key in to_delete_keys:
+        del data[key]
     return data
 
 
