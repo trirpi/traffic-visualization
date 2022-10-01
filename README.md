@@ -62,8 +62,6 @@ npm start
 
 ## Meta
 
-[Tristan Trouwen](https://tristantrouwen.com) – [@tristantrouwen](https://twitter.com/tristantrouwen)
-
 Distributed under the MIT license. See ``LICENSE`` for more information.
 
 [https://github.com/trirpi/traffic-visualization](https://github.com/trirpi/traffic-visualization)
