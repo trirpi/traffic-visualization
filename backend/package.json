@@ -15,7 +15,7 @@
   "license": "ISC",
   "homepage": "https://github.com/trirpi/traffic-visualization#readme",
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.22.1",
     "fs": "0.0.1-security"
   }
 }
