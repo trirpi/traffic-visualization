@@ -15,9 +15,11 @@ module.exports = {
         port: 9000
     },
     plugins: [
-        new CopyPlugin([
-            { from: 'src/index.html', to: 'index.html' },
-            { from: 'src/style.css', to: 'style.css' },
-        ]),
+        new CopyPlugin({
+            patterns: [
+                { from: 'src/index.html', to: 'index.html' },
+                { from: 'src/style.css', to: 'style.css' },
+            ],
+        }),
     ],
 }
